@@ -36,7 +36,7 @@ def test_my_license_without_credentials():
     response = requests.get("http://localhost:5000/api/me/license")
     print(response)
     assert response.status_code == 401
-    data = response.json()["data"]
+    data = response.json()
     assert len(data) == 1
     assert data["msg"] != ""
 
