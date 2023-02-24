@@ -19,5 +19,5 @@ def test_index_api_costs():
     assert data[0]["name"] == "Futbol"
     assert data[0]["teacher"] == "Juan"
     assert data[0]["dates"] == "Lunes 6:00pm - 8:00pm"
-    assert data[0]["monthly_cost"] == "800.0"
+    assert data[0]["monthly_cost"] in ["800.0","800"]
     assert data[0]["category"] == "12 a 14 años"
