@@ -9,9 +9,7 @@ from src.core.auth import (
     create_permission,
 )
 
-from core.board.repositories.payments import create_payment
-from src.core.board.repositories.discipline import add_discipline
-from src.core.board.repositories.associate import create_associate, get_associate_by_id
+from src.core.board import create_payment,create_associate,add_discipline,add_discipline_to_associate,list_all_disciplines
 from passlib.hash import sha256_crypt
 from src.web.helpers.auth import get_permissions
 from src.core.board import list_all_associates
@@ -221,6 +219,7 @@ def populate():
     )
     add_role_to_user(u, op_role)
     associate = list_all_associates()[0]
+    add_discipline_to_associate(associate, list_all_disciplines()[0])
     from src.core.board.repositories.configuration import get_cfg
     from src.web.helpers.payment_helpers import disciplines_fee_amount
 

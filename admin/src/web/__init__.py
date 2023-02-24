@@ -44,6 +44,7 @@ def create_app(env="development", static_folder="/static", template_folder="temp
         white_list = [
             "http://localhost:5173",
             "https://grupo12.proyecto2022.linti.unlp.edu.ar",
+            
         ]
         CORS(
             app,
