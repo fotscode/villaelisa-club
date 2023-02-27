@@ -1,23 +1,41 @@
 import requests
+import pytest
+from src.web import create_app
 
 
-def test_index_api():
-    response = requests.get("http://localhost:5000/api/club/disciplines/")
-    data = response.json()["data"]
+@pytest.fixture()
+def app():
+    app = create_app()
+    app.config.update(
+        {
+            "TESTING": True,
+        }
+    )
+    yield app
 
+
+@pytest.fixture()
+def client(app):
+    return app.test_client()
+
+
+def test_index_api(client):
+    response = client.get("http://localhost:5000/api/club/disciplines/")
     assert response.status_code == 200
+
+    data = response.get_json()["data"]
     assert len(data) == 7
     assert data[0]["name"] == "Futbol"
     assert data[0]["teacher"] == "Juan"
     assert data[0]["dates"] == "Lunes 6:00pm - 8:00pm"
 
 
-def test_index_api_costs():
-    response = requests.get(
-        "http://localhost:5000/api/club/disciplines/disciplines_with_costs"
-    )
+def test_index_api_costs(client):
+    response = client.get("http://localhost:5000/api/club/disciplines/disciplines_with_costs")
     assert response.status_code == 200
-    data = response.json()["data"]
+    data = response.get_json()["data"]
+
+
     assert len(data) == 7
     assert data[0]["name"] == "Futbol"
     assert data[0]["teacher"] == "Juan"
